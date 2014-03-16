@@ -1,0 +1,9 @@
+.DS_Store
+.rvmrc
+.vagrant
+*.swp
+/code
+site-cookbooks/git/files/default/.gitconfig
+*.box
+cookbooks
+tmp
