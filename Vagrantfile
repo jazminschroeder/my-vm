@@ -15,7 +15,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
   # Every Vagrant virtual environment requires a box to build off of.
   config.vm.box = "my_vm"
-  config.vm.synced_folder "../doggyhood", "/home/vagrant/doggyhood", :nfs => true
+  config.vm.synced_folder "../projects", "/home/vagrant/projects", :nfs => true
 
   # The url from where the 'config.vm.box' box will be fetched if it
   # doesn't already exist on the user's system.
@@ -26,11 +26,11 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # within the machine from a port on the host machine. In the example below,
   # accessing "localhost:8080" will access port 80 on the guest machine.
   # config.vm.network :forwarded_port, guest: 80, host: 8080
-  config.vm.network :forwarded_port, guest: 3000, host: 3000
+  config.vm.network :forwarded_port, guest: 9200, host: 9200, auto_correct: true
 
   # Create a private network, which allows host-only access to the machine
   # using a specific IP.
-  config.vm.network :private_network, ip: "192.168.50.2"
+  config.vm.network :private_network, ip: "192.168.70.2"
 
   # Create a public network, which generally matched to bridged network.
   # Bridged networks make the machine appear as another physical device on
@@ -99,6 +99,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     chef.add_recipe('rbenv::user')
     chef.add_recipe('rbenv::vagrant')
     chef.add_recipe('tmux')
+    chef.add_recipe('elasticsearch')
 
     chef.json = {
       "rbenv" => {

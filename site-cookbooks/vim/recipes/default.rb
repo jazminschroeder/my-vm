@@ -14,10 +14,3 @@ end
 link File.join(home, '.vimrc') do
   to File.join(home, '.vim', 'vimrc')
 end
-
-bash 'build command-t' do
-  user 'vagrant'
-  cwd "#{home}/.vim/bundle/command-t/ruby/command-t"
-  creates "#{home}/.vim/bundle/command-t/ruby/command-t/ext.o"
-  code 'ruby extconf.rb ; make clean ; make'
-end
