@@ -27,6 +27,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # accessing "localhost:8080" will access port 80 on the guest machine.
   # config.vm.network :forwarded_port, guest: 80, host: 8080
   config.vm.network :forwarded_port, guest: 9200, host: 9200, auto_correct: true
+  config.vm.network :forwarded_port, guest: 5000, host: 5000, auto_correct: true
 
   # Create a private network, which allows host-only access to the machine
   # using a specific IP.
@@ -100,6 +101,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     chef.add_recipe('rbenv::vagrant')
     chef.add_recipe('tmux')
     chef.add_recipe('elasticsearch')
+    chef.add_recipe('postgresql')
 
     chef.json = {
       "rbenv" => {
