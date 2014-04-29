@@ -91,17 +91,12 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   #
   config.vm.provision :chef_solo do |chef|
     chef.cookbooks_path = ["cookbooks", "site-cookbooks"]
-    chef.add_recipe('apt')
-    chef.add_recipe('ssh')
-    chef.add_recipe('build-essential')
-    chef.add_recipe('git')
-    chef.add_recipe('vim')
-    chef.add_recipe('ruby_build')
-    chef.add_recipe('rbenv::user')
-    chef.add_recipe('rbenv::vagrant')
-    chef.add_recipe('tmux')
-    chef.add_recipe('elasticsearch')
-    chef.add_recipe('postgresql')
+    chef.roles_path     = "roles"
+
+    chef.provisioning_path = "/tmp/vagrant-chef-solo"
+    chef.file_cache_path = chef.provisioning_path
+
+    chef.add_role "web_services"
 
     chef.json = {
       "rbenv" => {
@@ -117,6 +112,12 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
             }
           }
         ]
+      },
+      "postgresql" => {
+        "password" => {
+          "postgres" => ""
+        },
+        "version" => "9.3"
       }
     }
 
